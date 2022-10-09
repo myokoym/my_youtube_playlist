@@ -1,5 +1,6 @@
 {
   "name": "my_youtube_playlist",
+  "homepage": "/my_youtube_playlist/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
