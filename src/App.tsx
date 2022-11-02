@@ -1,10 +1,7 @@
-import { nextTick } from 'process';
 import React, { useState } from 'react';
 import './App.css';
 import Player, { Timestamp } from "./components/player"
 import TextList from "./components/text_list"
-
-//export const UserTimestamps = createContext()
 
 function App() {
   let defaultText =

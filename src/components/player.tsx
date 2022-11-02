@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import YouTube, { YouTubeProps } from 'react-youtube'
-import TextList from './text_list';
 
 type Props = {
   timestamps: Array<Timestamp>,
