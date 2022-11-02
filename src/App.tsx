@@ -5,12 +5,16 @@ import TextList from "./components/text_list"
 
 function App() {
   let defaultText =
-    "eAIPxj9WgeQ,2015,2419\n" +
-    "eAIPxj9WgeQ,2684,3032\n" +
-    "eAIPxj9WgeQ,3153,3397"
+    "eAIPxj9WgeQ,2015,2419,Everything\n" +
+    "eAIPxj9WgeQ,2684,3032,366日\n" +
+    "eAIPxj9WgeQ,3153,3397,忘れじの言の葉\n" +
     //"eAIPxj9WgeQ,2015,2019\n" +
     //"eAIPxj9WgeQ,2684,2688\n" +
-    //"eAIPxj9WgeQ,3153,3157"
+    //"eAIPxj9WgeQ,3153,3157,忘れじの言の葉\n" +
+    //"gSAjCYAw4N4,561,,\n" +
+    //"gSAjCYAw4N4,1017,,\n" +
+    //"gSAjCYAw4N4,3611,,\n" +
+    "-dhrp_Kqf5w,769,971,CHAINSAW BLOOD\n"
     //"-6CMf_gufLI,454,600\n" +
     //"-6CMf_gufLI,2415,2670\n" +
   const [text, setText] = useState<string>(defaultText)

@@ -14,8 +14,8 @@ const TextList: React.FC<Props> = ({ text, updateText }) => {
       <textarea
         value={text}
         onChange={handleChange}
-        rows={10}
-        cols={20}
+        rows={20}
+        cols={50}
       ></textarea>
     </div>
   );
