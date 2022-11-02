@@ -15,17 +15,6 @@ const Player: React.FC<Props> = ({ timestamps }) => {
   let index = 0
   let nextIndex = index
   let current = timestamps[index]
-  const onPlayerReady: YouTubeProps['onReady'] = (event) => {
-    console.log("onReady: " + index)
-    //event.target.playVideo()
-  }
-  const onStateChange: YouTubeProps['onStateChange'] = (event) => {
-    console.log("onStateChange", event.data)
-    //switch (event.data) {
-    //  case -1:
-    //    event.target.playVideo()
-    //}
-  }
   const onPlayerEnd: YouTubeProps['onEnd'] = (event) => {
     console.log("onEnd", current.end)
     // なぜかonEndが2回呼ばれるので、2回目はcurrentを更新しない
@@ -45,9 +34,6 @@ const Player: React.FC<Props> = ({ timestamps }) => {
       endSeconds: current.end,
     })
   }
-  //const reset2 = () => {
-  //  console.log("reset")
-  //}
 
   const opts: YouTubeProps['opts'] = {
     height: '360',
@@ -64,8 +50,6 @@ const Player: React.FC<Props> = ({ timestamps }) => {
       <YouTube
         videoId={current?.videoId}
         opts={opts}
-        onReady={onPlayerReady}
-        onStateChange={onStateChange}
         onEnd={onPlayerEnd}
       />
     </div>
