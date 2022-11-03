@@ -8,7 +8,7 @@ type Props = {
 export type Timestamp = {
   videoId: string,
   start: number,
-  end: number,
+  end: number | undefined,
 }
 
 const Player: React.FC<Props> = ({ timestamps }) => {
@@ -28,22 +28,30 @@ const Player: React.FC<Props> = ({ timestamps }) => {
     } else {
       nextIndex = index
     }
-    event.target.loadVideoById({
+    let options: any = {
       videoId: current.videoId,
       startSeconds: current.start,
-      endSeconds: current.end,
-    })
+    }
+    if (current.end) {
+      options.endSeconds = current.end
+    }
+    event.target.loadVideoById(options)
   }
 
+  const playerVars = (curr: Timestamp) => {
+    let options: any = {
+      autoplay: 1,
+      start: curr.start,
+    }
+    if (curr.end) {
+      options.end = curr.end
+    }
+    return options
+  }
   const opts: YouTubeProps['opts'] = {
     height: '360',
     width: '640',
-    playerVars: {
-      // https://developers.google.com/youtube/player_parameters
-      autoplay: 1,
-      start: current?.start,
-      end: current?.end,
-    },
+    playerVars: playerVars(current),
   };
   return (
     <div>

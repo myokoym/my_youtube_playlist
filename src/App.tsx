@@ -5,6 +5,8 @@ import TextList from "./components/text_list"
 
 function App() {
   let defaultText =
+    "https://www.youtube.com/watch?v=0tJkBgH1d5w,,,-ERROR\n" +
+    "https://youtu.be/0tJkBgH1d5w,0:10,0:1:0,-ERROR\n" +
     "eAIPxj9WgeQ,2015,2419,Everything\n" +
     "eAIPxj9WgeQ,2684,3032,366日\n" +
     "eAIPxj9WgeQ,3153,3397,忘れじの言の葉\n" +
@@ -19,15 +21,49 @@ function App() {
     //"-6CMf_gufLI,2415,2670\n" +
   const [text, setText] = useState<string>(defaultText)
   const updateText = (text: string): void => setText(text)
+  const timeParse = (time: string): number => {
+    //console.log("time: ", time)
+    let second
+    if (/^\d+:\d+:\d+$/.test(time)) {
+      let times = time.split(":")
+      //console.log("times: ", times)
+      second = Number(times[0]) * 3600 + Number(times[1]) * 60 + Number(times[2])
+    } else if (/^\d+:\d+$/.test(time)) {
+      let times = time.split(":")
+      //console.log("times: ", times)
+      second = Number(times[0]) * 60 + Number(times[1])
+    } else {
+      second = Number(time)
+    }
+    //console.log("second", second)
+    return second
+  }
   const parseText = (): Timestamp[] => {
     let newTimestamps: Timestamp[] = []
     text.split("\n").forEach(line => {
-      if (!/^[^,]+,\d+,\d+/.test(line)) return
+      //if (!/^[^,]+,\d+,\d+/.test(line)) return
       let columns = line.split(",")
+      let videoId = columns[0]
+      //console.log("videoId: ", videoId)
+      let found = /[?&]v=([^&]+)/.exec(videoId)
+      //console.log(found)
+      if (found) {
+        videoId = found[1]
+      } else {
+        found = /youtu\.be\/([^?&]+)/.exec(videoId)
+        if (found) {
+          videoId = found[1]
+        }
+      }
+      //console.log("parsed videoId: ", videoId)
+      let start = columns[1]
+      let startSec = start ? timeParse(start) : 0
+      let end = columns[2]
+      let endSec = end ? timeParse(end) : undefined
       newTimestamps.push({
-        videoId: columns[0],
-        start: Number(columns[1]),
-        end: Number(columns[2]),
+        videoId: videoId,
+        start: startSec,
+        end: endSec,
       })
     });
     return newTimestamps
